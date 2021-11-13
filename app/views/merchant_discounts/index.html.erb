@@ -1,6 +1,8 @@
 <h1>Current Discounts</h1>
 <hr>
 
+<%= link_to "Create New Discount", "/merchants/#{@discounts.first.merchant_id}/discounts/new" %>
+
 <section id="discounts_list">
 <% @discounts.each do |discount| %>
   <section id="show-<%= discount.id %>"
