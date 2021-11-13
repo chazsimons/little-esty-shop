@@ -1,1 +1,11 @@
-<h1>test</h1>
+<h1>Create New Discount</h1>
+
+<section id="create_discount">
+<%= form_with url: "/merchants/#{@merchant.id}/discounts", method: :post, local: true do |f|%>
+<%= f.label :percentage, "Percentage:" %>
+<%= f.number_field :percentage, value: 0.0, step: 0.05 %>
+<%= f.label :threshold, "Quantity Necessary:" %>
+<%= f.number_field :threshold, value: 0, step: 1 %>
+<%= f.submit "Create Discount" %>
+<% end %>
+</section>
