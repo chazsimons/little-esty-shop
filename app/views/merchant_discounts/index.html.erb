@@ -3,7 +3,10 @@
 
 <section id="discounts_list">
 <% @discounts.each do |discount| %>
-  <p>Percentage: <%= (discount.percentage * 100)%>%</p>
-  <p>Quantity Necessary: <%= discount.threshold %></p>
+  <section id="show-<%= discount.id %>"
+    <p>Percentage: <%= (discount.percentage * 100)%>%</p>
+    <p>Quantity Necessary: <%= discount.threshold %></p>
+  <%= link_to "See this discount", "/merchants/#{discount.merchant.id}/discounts/#{discount.id}" %>
+  </section>
 <% end %>
 </section>

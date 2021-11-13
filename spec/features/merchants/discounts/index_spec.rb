@@ -45,4 +45,13 @@ RSpec.describe 'Merchant Index Show Page' do
       expect(page).to_not have_content(@discount_4.threshold)
     end
   end
+
+  it 'has a link to each discounts show page' do
+    visit "/merchants/#{@merchant_1.id}/discounts"
+
+    within("#show-#{@discount_2.id}") do
+      click_link "See this discount"
+      expect(current_path).to eq("/merchants/#{@merchant_1.id}/discounts/#{@discount_2.id}")
+    end
+  end
 end

@@ -17,6 +17,7 @@ Rails.application.routes.draw do
   patch '/admin/invoices/:invoice_id', to: 'admin_invoices#update'
 
   get '/merchants/:merchant_id/discounts', to: 'merchant_discounts#index'
+  get 'merchants/:merchant_id/discounts/:discount_id', to: 'merchant_discounts#show'
 
   resources :merchants, only: [:show] do
     resources :dashboard, only: [:index]
