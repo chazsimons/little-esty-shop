@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe 'Discount Show Page' do
+RSpec.describe 'Discount Edit Page' do
   before :each do
     @merchant_1 = Merchant.create!(name: "Larry's Lucky Ladles")
     @merchant_2 = Merchant.create!(name: "Spatula City")
@@ -35,16 +35,21 @@ RSpec.describe 'Discount Show Page' do
     @discount_4 = BulkDiscount.create!(percentage: 0.10, threshold: 7, merchant_id: @merchant_2.id)
   end
 
-  it 'displays a discounts attributes' do
-    visit "/merchants/#{@merchant_1.id}/discounts/#{@discount_1.id}"
+  it 'has a form to update details with existing values in fields' do
+    visit "/merchants/#{@merchant_1.id}/discounts/#{@discount_1.id}/edit"
 
-    expect(page).to have_content(@discount_1.percentage)
     expect(page).to have_content(@discount_1.threshold)
+    expect(page).to have_field(:percentage)
   end
 
-  it 'has a link to edit the discount' do
-    visit "/merchants/#{@merchant_1.id}/discounts/#{@discount_1.id}"
+  it 'updates discount details' do
+    visit "/merchants/#{@merchant_1.id}/discounts/#{@discount_1.id}/edit"
 
-    click_link "Update Discount Details"
+    fill_in :percentage, with: 0.50
+    fill_in :threshold, with: 100
+    click_button "Update Discount Details"
+
+    expect(current_path).to eq("/merchants/#{@merchant_1.id}/discounts/#{@discount_1.id}")
+    expect(page).to have_content(100)
   end
 end
