@@ -14,10 +14,12 @@ RSpec.describe 'New Discount Form' do
     visit "/merchants/#{@merchant_1.id}/discounts/new"
 
     within("#create_discount") do
-      fill_in :percentage, with: 0.50
+      fill_in :percentage, with: 0.75
       fill_in :threshold, with: 25
       click_button "Create Discount"
       expect(current_path).to eq("/merchants/#{@merchant_1.id}/discounts")
     end
+    visit "/merchants/#{@merchant_1.id}/discounts"
+    expect(page).to have_content("75.0%")
   end
 end
