@@ -50,7 +50,7 @@ RSpec.describe 'Merchant Index Show Page' do
     visit "/merchants/#{@merchant_1.id}/discounts"
 
     within("#show-#{@discount_2.id}") do
-      click_link "See this discount"
+      click_link "Discount Details"
       expect(current_path).to eq("/merchants/#{@merchant_1.id}/discounts/#{@discount_2.id}")
     end
   end
@@ -60,5 +60,17 @@ RSpec.describe 'Merchant Index Show Page' do
 
     click_link("Create New Discount")
     expect(current_path).to eq("/merchants/#{@merchant_1.id}/discounts/new")
+  end
+
+  it 'has link to delete a discount' do
+    visit "/merchants/#{@merchant_1.id}/discounts"
+
+    expect(page).to have_content(@discount_2.threshold)
+
+    within("#show-#{@discount_2.id}") do
+      click_link "Delete Discount"
+    end
+
+    expect(page).to_not have_content(@discount_2.threshold)
   end
 end
