@@ -1,6 +1,9 @@
-<h1> <%#= @discounts.merchant.name %> Discount Index</h1>
+<h1>Current Discounts</h1>
+<hr>
 
-<%# @discounts.each do |discount| %>
-  <p>Percentage: <%#= discount.percentage %></p>
-  <p>Quantity Necessary: <%#= discount.threshold %></p>
-<%# end %>
+<section id="discounts_list">
+<% @discounts.each do |discount| %>
+  <p>Percentage: <%= (discount.percentage * 100)%>%</p>
+  <p>Quantity Necessary: <%= discount.threshold %></p>
+<% end %>
+</section>

@@ -315,6 +315,7 @@
           1,
           1,
           1,
+          1,
           null,
           1,
           0,
@@ -343,7 +344,7 @@
           null,
           null,
           1,
-          9,
+          0,
           null,
           null,
           1,
@@ -394,7 +395,7 @@
           null,
           null,
           1,
-          8,
+          0,
           null,
           null,
           null,
@@ -481,23 +482,19 @@
           null
         ]
       },
-      "/Users/chazsimons/turing/mod2/projects/bulk_discounts/little-esty-shop/app/models/transaction.rb": {
+      "/Users/chazsimons/turing/mod2/projects/bulk_discounts/little-esty-shop/app/models/bulk_discount.rb": {
         "lines": [
           1,
           1,
-          1,
-          null,
-          1,
-          0,
-          null,
           null
         ]
       },
-      "/Users/chazsimons/turing/mod2/projects/bulk_discounts/little-esty-shop/app/controllers/dashboard_controller.rb": {
+      "/Users/chazsimons/turing/mod2/projects/bulk_discounts/little-esty-shop/app/controllers/merchant_discounts_controller.rb": {
         "lines": [
           1,
+          null,
           1,
-          8,
+          1,
           null,
           null
         ]
@@ -507,9 +504,9 @@
           1,
           1,
           1,
-          9,
-          9,
-          9,
+          1,
+          1,
+          1,
           null,
           null
         ]
@@ -518,14 +515,14 @@
         "lines": [
           1,
           1,
-          9,
+          1,
           0,
           0,
           null,
           null,
           null,
           1,
-          9,
+          1,
           0,
           0,
           0,
@@ -534,7 +531,7 @@
           null,
           null,
           1,
-          9,
+          1,
           0,
           0,
           null,
@@ -564,25 +561,8 @@
           null,
           null
         ]
-      },
-      "/Users/chazsimons/turing/mod2/projects/bulk_discounts/little-esty-shop/app/controllers/merchant_discounts_controller.rb": {
-        "lines": [
-          1,
-          null,
-          1,
-          1,
-          null,
-          null
-        ]
-      },
-      "/Users/chazsimons/turing/mod2/projects/bulk_discounts/little-esty-shop/app/models/bulk_discount.rb": {
-        "lines": [
-          1,
-          null,
-          null
-        ]
       }
     },
-    "timestamp": 1636830725
+    "timestamp": 1636833488
   }
 }
