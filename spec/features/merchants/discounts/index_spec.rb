@@ -71,6 +71,8 @@ RSpec.describe 'Merchant Index Show Page' do
       click_link "Delete Discount"
     end
 
-    expect(page).to_not have_content(@discount_2.threshold)
+    within('#discounts_list') do
+      expect(page).to_not have_content(@discount_2.threshold)
+    end
   end
 end
