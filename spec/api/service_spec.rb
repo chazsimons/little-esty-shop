@@ -1,3 +1,4 @@
+require 'faraday'
 require './app/service/github_service'
 
 RSpec.describe GithubService do
