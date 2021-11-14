@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe 'Merchant Index Show Page' do
+RSpec.describe 'Discount Edit Page' do
   before :each do
     @merchant_1 = Merchant.create!(name: "Larry's Lucky Ladles")
     @merchant_2 = Merchant.create!(name: "Spatula City")
@@ -35,42 +35,21 @@ RSpec.describe 'Merchant Index Show Page' do
     @discount_4 = BulkDiscount.create!(percentage: 0.10, threshold: 7, merchant_id: @merchant_2.id)
   end
 
-  it 'displays a list of a merchants discounts' do
-    visit "/merchants/#{@merchant_1.id}/discounts"
+  it 'has a form to update details with existing values in fields' do
+    visit "/merchants/#{@merchant_1.id}/discounts/#{@discount_1.id}/edit"
 
-    within("#discounts_list") do
-      expect(page).to have_content(@discount_1.threshold)
-      expect(page).to have_content((@discount_2.percentage * 100))
-      expect(page).to have_content(@discount_3.threshold)
-      expect(page).to_not have_content(@discount_4.threshold)
-    end
+    expect(page).to have_content(@discount_1.threshold)
+    expect(page).to have_field(:percentage)
   end
 
-  it 'has a link to each discounts show page' do
-    visit "/merchants/#{@merchant_1.id}/discounts"
+  it 'updates discount details' do
+    visit "/merchants/#{@merchant_1.id}/discounts/#{@discount_1.id}/edit"
 
-    within("#show-#{@discount_2.id}") do
-      click_link "Discount Details"
-      expect(current_path).to eq("/merchants/#{@merchant_1.id}/discounts/#{@discount_2.id}")
-    end
-  end
+    fill_in :percentage, with: 0.50
+    fill_in :threshold, with: 100
+    click_button "Update Discount Details"
 
-  it 'has a link to create a new discount' do
-    visit "/merchants/#{@merchant_1.id}/discounts"
-
-    click_link("Create New Discount")
-    expect(current_path).to eq("/merchants/#{@merchant_1.id}/discounts/new")
-  end
-
-  it 'has link to delete a discount' do
-    visit "/merchants/#{@merchant_1.id}/discounts"
-
-    expect(page).to have_content(@discount_2.threshold)
-
-    within("#show-#{@discount_2.id}") do
-      click_link "Delete Discount"
-    end
-
-    expect(page).to_not have_content(@discount_2.threshold)
+    expect(current_path).to eq("/merchants/#{@merchant_1.id}/discounts/#{@discount_1.id}")
+    expect(page).to have_content(100)
   end
 end
