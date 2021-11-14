@@ -71,6 +71,18 @@ RSpec.describe 'Merchant Index Show Page' do
       click_link "Delete Discount"
     end
 
-    expect(page).to_not have_content(@discount_2.threshold)
+    within('#discounts_list') do
+      expect(page).to_not have_content(@discount_2.threshold)
+    end
+  end
+
+  it 'displays the 3 nearest holidays' do
+    visit "/merchants/#{@merchant_1.id}/discounts"
+
+    within('#upcoming_holidays') do
+      expect(page).to have_content("Christmas Day")
+      expect(page).to have_content("New Year's Day")
+      expect(page).to have_content("Thursday, Nov 25, 2021")
+    end
   end
 end

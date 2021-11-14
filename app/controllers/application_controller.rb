@@ -4,5 +4,6 @@ class ApplicationController < ActionController::Base
     @repo = GithubFacade.create_repo
     @contributors = GithubFacade.create_contributor
     @pulls = GithubFacade.create_pull
+    @holidays = HolidayFacade.create_upcoming
   end
 end
