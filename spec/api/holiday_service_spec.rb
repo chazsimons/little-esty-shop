@@ -1,4 +1,5 @@
 require 'faraday'
+require 'time'
 require './app/service/holiday_service'
 
 RSpec.describe 'Holiday Service' do
@@ -52,5 +53,14 @@ RSpec.describe 'Holiday Service' do
                 holiday[:localName]
               end
     expect(results).to eq(['Thanksgiving Day', 'Christmas Day', 'New Years Day'])
+  end
+
+  it 'returns the date of each holiday' do
+    json = HolidayService.upcoming
+
+    dates = json.map do |date|
+              Time.parse(date[:date]).strftime('%A, %b %d, %Y')
+            end
+    expect(dates).to eq(['Thursday, Nov 25, 2021', 'Friday, Dec 24, 2021', 'Friday, Dec 31, 2021'])
   end
 end
