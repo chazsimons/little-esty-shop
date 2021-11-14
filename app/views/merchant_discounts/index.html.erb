@@ -4,13 +4,13 @@
 <h4>Upcoming Holidays</h4>
 <section id="upcoming_holidays">
 <% @holidays.each do |holiday| %>
-  <p><%= holiday.name %></p>
-  <p><%= holiday.date %></p>
+  <p><%= holiday.name %> arrives <%= holiday.date %></p>
 <% end %>
 </section>
 <br>
 <%= link_to "Create New Discount", "/merchants/#{@merchant.id}/discounts/new" %>
-
+<br>
+<br>
 <section id="discounts_list">
 <% @discounts.each do |discount| %>
   <section id="show-<%= discount.id %>"

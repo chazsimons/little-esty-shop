@@ -3,6 +3,6 @@ class HolidayFacade
     json = HolidayService.upcoming
     json.map do |data|
       Holiday.new(data)
-    end
+    end[0..2]
   end 
 end

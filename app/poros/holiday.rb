@@ -3,6 +3,6 @@ class Holiday
 
   def initialize(data)
     @name = data[:localName]
-    @date = Time.parse(data[:date]).strftime('%A, %b, %d, %Y')
+    @date = Time.parse(data[:date]).strftime('%A, %b %d, %Y')
   end
 end
