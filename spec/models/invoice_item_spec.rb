@@ -4,6 +4,7 @@ RSpec.describe InvoiceItem, type: :model do
   before :each do
     @merchant_1 = Merchant.create!(name: "Larry's Lucky Ladles")
 
+
     @item_1 = Item.create!(name: "Star Wars Ladle", description: "May the soup be with you", unit_price: 10, merchant_id: @merchant_1.id)
     @item_2 = Item.create!(name: "Sparkle Ladle", description: "Serve in style", unit_price: 12, merchant_id: @merchant_1.id)
     @item_3 = Item.create!(name: "Green Ladle", description: "It is green", unit_price: 15, merchant_id: @merchant_1.id)
@@ -35,6 +36,11 @@ RSpec.describe InvoiceItem, type: :model do
     @transaction_5 = Transaction.create!(credit_card_number: "5773 4374 4373 2622", credit_card_expiration_date: "2027-11-24", result: 0, invoice_id: @invoice_2.id)
     @transaction_6 = Transaction.create!(credit_card_number: "5235 2374 3233 2322", credit_card_expiration_date: "2023-03-23", result: 0, invoice_id: @invoice_2.id)
     @transaction_7 = Transaction.create!(credit_card_number: "5233 2322 3211 2300", credit_card_expiration_date: "2021-12-23", result: 1, invoice_id: @invoice_2.id)
+
+    @discount_1 = BulkDiscount.create!(percentage: 0.5, threshold: 25, merchant_id: @merchant_1.id)
+    @discount_2 = BulkDiscount.create!(percentage: 0.25, threshold: 20, merchant_id: @merchant_1.id)
+    @discount_3 = BulkDiscount.create!(percentage: 0.15, threshold: 10, merchant_id: @merchant_1.id)
+    @discount_4 = BulkDiscount.create!(percentage: 0.5, threshold: 15, merchant_id: @merchant_1.id)
   end
 
   describe "relationships" do
@@ -46,9 +52,14 @@ RSpec.describe InvoiceItem, type: :model do
     it 'returns item revenue top 5' do
       expect(InvoiceItem.item_revenue).to eq([@item_6.id, @item_4.id, @item_3.id, @item_5.id, @item_2.id, @item_1.id, @item_7.id])
     end
-    
+
     it 'returns an array of incomplete invoice_item ids' do
       expect(InvoiceItem.incomplete_invoices).to eq([@invoice_1.id, @invoice_2.id])
     end
+  end
+
+  it 'calculates discounted revenue where applicable' do
+    results = InvoiceItem.first.discount_revenue
+
   end
 end

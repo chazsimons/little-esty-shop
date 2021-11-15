@@ -16,4 +16,9 @@
   <%= f.submit 'Update Item Status' %>
   <% end %> </p>
 
-<h3> Total Revenue Generated: </h3> $<%= @invoice_items.item_revenue %>
+<section id="revenue_generated">
+<h3> Total Revenue Generated: </h3>
+$<%= @invoice_items.item_revenue %>
+<h3> Total Revenue After Discounts: </h3>
+ <%= @invoice_items.discount_revenue.key(@invoice.id) %>
+</section>
