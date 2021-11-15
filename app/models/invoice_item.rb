@@ -41,7 +41,6 @@ class InvoiceItem < ApplicationRecord
     .where(:bulk_count >= :threshold)
     .group('invoice_items.invoice_id')
     .sum('(invoice_items.quantity * invoice_items.unit_price) * bulk_discounts.percentage')
-    require "pry"; binding.pry
     (discounted_hash[invoice_id].to_f / 100).round(0)
   end
 end
