@@ -15,6 +15,7 @@
   <%= f.select :status, ['packaged', 'pending', 'shipped'], selected: @invoice_items.status %>
   <%= f.submit 'Update Item Status' %>
   <% end %> </p>
+<p><%= link_to "Applied Discounts", "/merchants/#{@merchant.id}/discounts" %>
 
 <section id="revenue_generated">
 <h3> Total Revenue Generated: </h3>
