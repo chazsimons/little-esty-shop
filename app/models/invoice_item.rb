@@ -21,7 +21,7 @@ class InvoiceItem < ApplicationRecord
     incomplete_invoices
   end
 
-  def discount_revenue
+  def discount_revenue(invoice_id)
     # Returns the quantity and item_id of invoice items
     # InvoiceItem.joins(invoice: :transactions).where(transactions: {result: 0}).joins([item: :merchant]).select('invoice_items.item_id AS item_id, invoice_items.quantity AS quantity')
 
@@ -41,6 +41,7 @@ class InvoiceItem < ApplicationRecord
     .where(:bulk_count >= :threshold)
     .group('invoice_items.invoice_id')
     .sum('(invoice_items.quantity * invoice_items.unit_price) * bulk_discounts.percentage')
-    discounted_hash
+    require "pry"; binding.pry
+    (discounted_hash[invoice_id].to_f / 100).round(0)
   end
 end

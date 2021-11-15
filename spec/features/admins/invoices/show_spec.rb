@@ -66,4 +66,12 @@ RSpec.describe 'Admin Invoice Show Page' do
 
     expect(current_path).to eq("/admin/invoices/#{@invoice_2.id}")
   end
+
+  it 'has a section for discounted revenue' do
+    visit "/admin/invoices/#{@invoice_2.id}"
+
+    within("#revenue_generated") do
+      expect(page).to have_content("Total Revenue After Discounts:")
+    end
+  end
 end

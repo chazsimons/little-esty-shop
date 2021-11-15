@@ -4,7 +4,6 @@ RSpec.describe InvoiceItem, type: :model do
   before :each do
     @merchant_1 = Merchant.create!(name: "Larry's Lucky Ladles")
 
-
     @item_1 = Item.create!(name: "Star Wars Ladle", description: "May the soup be with you", unit_price: 10, merchant_id: @merchant_1.id)
     @item_2 = Item.create!(name: "Sparkle Ladle", description: "Serve in style", unit_price: 12, merchant_id: @merchant_1.id)
     @item_3 = Item.create!(name: "Green Ladle", description: "It is green", unit_price: 15, merchant_id: @merchant_1.id)
@@ -39,7 +38,7 @@ RSpec.describe InvoiceItem, type: :model do
 
     @discount_1 = BulkDiscount.create!(percentage: 0.5, threshold: 25, merchant_id: @merchant_1.id)
     @discount_2 = BulkDiscount.create!(percentage: 0.25, threshold: 20, merchant_id: @merchant_1.id)
-    @discount_3 = BulkDiscount.create!(percentage: 0.15, threshold: 10, merchant_id: @merchant_1.id)
+    @discount_3 = BulkDiscount.create!(percentage: 0.10, threshold: 5, merchant_id: @merchant_1.id)
     @discount_4 = BulkDiscount.create!(percentage: 0.5, threshold: 15, merchant_id: @merchant_1.id)
   end
 
@@ -59,7 +58,7 @@ RSpec.describe InvoiceItem, type: :model do
   end
 
   it 'calculates discounted revenue where applicable' do
-    results = InvoiceItem.first.discount_revenue
-
+    results = @ii_1.discount_revenue
+    expect(results).to eq(9)
   end
 end

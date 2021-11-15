@@ -20,5 +20,5 @@
 <h3> Total Revenue Generated: </h3>
 $<%= @invoice_items.item_revenue %>
 <h3> Total Revenue After Discounts: </h3>
- <%= @invoice_items.discount_revenue.key(@invoice.id) %>
+$<%= @invoice_items.discount_revenue(@invoice.id) %>
 </section>
