@@ -22,6 +22,11 @@ RSpec.describe 'merchant invoices show page' do
     @ii_2 = InvoiceItem.create!(quantity: 1, unit_price: 12, status: 2, item_id: @item_2.id, invoice_id: @invoice_2.id)
     @ii_3 = InvoiceItem.create!(quantity: 1, unit_price: 40, status: 0, item_id: @item_3.id, invoice_id: @invoice_3.id)
     @ii_4 = InvoiceItem.create!(quantity: 3, unit_price: 30, status: 2, item_id: @item_4.id, invoice_id: @invoice_4.id)
+
+    @discount_1 = BulkDiscount.create!(percentage: 0.5, threshold: 25, merchant_id: @merchant_1.id)
+    @discount_2 = BulkDiscount.create!(percentage: 0.25, threshold: 20, merchant_id: @merchant_1.id)
+    @discount_3 = BulkDiscount.create!(percentage: 0.15, threshold: 10, merchant_id: @merchant_1.id)
+    @discount_4 = BulkDiscount.create!(percentage: 0.5, threshold: 15, merchant_id: @merchant_1.id)
   end
 
   it 'shows the inovice id' do
@@ -98,5 +103,13 @@ RSpec.describe 'merchant invoices show page' do
     click_button "Update Item Status"
 
     expect(current_path).to eq("/merchants/#{@merchant_1.id}/invoices/#{@invoice_1.id}")
+  end
+
+  it 'has a section for discounted revenue' do
+    visit "/merchants/#{@merchant_1.id}/invoices/#{@invoice_1.id}"
+
+    within('#revenue_generated') do
+      expect(page).to have_content("Total Revenue After Discounts:")
+    end
   end
 end
