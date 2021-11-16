@@ -2,8 +2,8 @@
 
 <%= form_with url: "/merchants/#{@discount.merchant_id}/discounts/#{@discount.id}", method: :patch do |f| %>
 <%= f.label :percentage, "Percentage:" %>
-<%= f.number_field :percentage, value: @discount.percentage, step: 0.05 %><br>
+<p><%= f.number_field :percentage, value: @discount.percentage, step: 0.05 %></p>
 <%= f.label :threshold %>
-<%= f.number_field :threshold, value: @discount.threshold, step: 1 %><br>
+<p><%= f.number_field :threshold, value: @discount.threshold, step: 1 %></p>
 <%= f.submit "Update Discount Details" %>
 <% end %>
