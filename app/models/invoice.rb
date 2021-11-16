@@ -25,16 +25,9 @@ class Invoice < ApplicationRecord
     Invoice.where(id: incomplete_invoices_ids).order(created_at: :asc).pluck(:id, :created_at)
   end
 
-  # def discount_revenue
-  #   invoice_items.joins(items: :bulk_discounts)
-  #   .joins(:transactions)
-  #   .where(transactions: {result: 0})
-  #   .select('bulk_discounts.threshold AS threshold, invoice_items.quantity AS bulk_count')
-  #   require "pry"; binding.pry
-  #   # .group('invoice_items.item_id')
-  #   .where(:bulk_count >= :threshold)
-  #   .group('merchants.id')
-  #   .sum('(invoice_items.quantity * invoice_items.unit_price) * max(bulk_discounts.percentage)')
-  #
-  # end
+  def ruby_invoice_discount
+    invoice_items.sum do |ii|
+      ii.ruby_discount_revenue
+    end
+  end
 end

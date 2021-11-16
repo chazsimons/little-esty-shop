@@ -39,7 +39,6 @@ RSpec.describe InvoiceItem, type: :model do
     @discount_1 = BulkDiscount.create!(percentage: 0.5, threshold: 25, merchant_id: @merchant_1.id)
     @discount_2 = BulkDiscount.create!(percentage: 0.25, threshold: 20, merchant_id: @merchant_1.id)
     @discount_3 = BulkDiscount.create!(percentage: 0.10, threshold: 5, merchant_id: @merchant_1.id)
-    @discount_4 = BulkDiscount.create!(percentage: 0.5, threshold: 15, merchant_id: @merchant_1.id)
   end
 
   describe "relationships" do
@@ -57,8 +56,13 @@ RSpec.describe InvoiceItem, type: :model do
     end
   end
 
-  it 'calculates discounted revenue where applicable' do
-    results = @ii_1.discount_revenue(@invoice_1.id)
-    expect(results).to eq(79.38)
+  it 'finds the best discount' do
+    results = @ii_1.ruby_best_discount
+    expect(results).to eq(@discount_3)
+  end
+
+  it 'calculates the discounted revenue' do
+    results = @invoice_1.ruby_invoice_discount
+    expect(results).to eq(252.0)
   end
 end
