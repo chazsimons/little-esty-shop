@@ -37,8 +37,8 @@ RSpec.describe 'Discount Show Page' do
 
   it 'displays a discounts attributes' do
     visit "/merchants/#{@merchant_1.id}/discounts/#{@discount_1.id}"
-
-    expect(page).to have_content(@discount_1.percentage)
+    nice_formatting = (@discount_1.percentage * 100)
+    expect(page).to have_content("#{nice_formatting}%")
     expect(page).to have_content(@discount_1.threshold)
   end
 

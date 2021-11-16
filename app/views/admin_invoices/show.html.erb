@@ -10,14 +10,16 @@
 <p>Created at: <%= @invoice.created_at.strftime('%A, %B %d, %Y') %></p>
 
 <h2>Item Information:</h2>
-<p>Item Name: <%= @item.name %></p>
-<p>Quantity Ordered: <%= @invoice_items.quantity %></p>
-<p>Price Sold For: <%= @item.unit_price %></p>
-<p>Invoice Item Status: <%= @invoice_items.status %></p>
+<% @invoice.invoice_items.each do |ii| %>
+<p>Item Name: <%= ii.item.name %></p>
+<p>Quantity Ordered: <%= ii.quantity %></p>
+<p>Price Sold For: <%= ii.unit_price %></p>
+<p>Invoice Item Status: <%= ii.status %></p>
+<% end %>
 
 <section id="revenue_generated">
 Total Revenue Generated: <br>
 $<%= @invoice_items.item_revenue %><br>
 Total Revenue After Discounts: <br>
-$<%= @invoice_items.discount_revenue(@invoice.id) %>
+$<%= @invoice.ruby_invoice_discount %>
 </section>
