@@ -30,13 +30,13 @@ This project requires Ruby 2.7.2.
     * `bundle`
     * `rails db:drop db:create db:migrate`
     * `rails csv_load:all`
-* Run the test suite with `bundle exec rspec`.
+* Run the test suite with `bundle exec rspec`
 * Run your development server with `rails s` to see the app in action.
 
 ## Testing
 Our project utilizes the Rails application database to streamline testing. From the command-line, run 'rails csv_load:all' to populate the database. Our project uses RSpec as the testing framework.
 
-## Contributers
+## Contributors
 
 - [Ted Staros](https://github.com/tstaros23)
 - [Chaz Simons](https://github.com/chazsimons)
