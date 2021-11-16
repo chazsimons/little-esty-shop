@@ -10,12 +10,13 @@
 <h3>Items: </h3><%= @item.name %>
 <p>Quantity: <%= @invoice_items.quantity %> </p>
 <p>Unit Price: <%= @item.unit_price %> </p>
+<p><%= link_to "Applied Discounts", "/merchants/#{@merchant.id}/discounts" %></p>
 <p>Status:
   <%= form_with url: merchant_invoice_path(@merchant, @invoice), method: :patch, local: true do |f| %>
   <%= f.select :status, ['packaged', 'pending', 'shipped'], selected: @invoice_items.status %>
   <%= f.submit 'Update Item Status' %>
   <% end %> </p>
-<p><%= link_to "Applied Discounts", "/merchants/#{@merchant.id}/discounts" %>
+<p><%#= link_to "Applied Discounts", "/merchants/#{@merchant.id}/discounts" %></p>
 
 <section id="revenue_generated">
 <h3> Total Revenue Generated: </h3>

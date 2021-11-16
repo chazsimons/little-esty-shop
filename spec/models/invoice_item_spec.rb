@@ -59,6 +59,6 @@ RSpec.describe InvoiceItem, type: :model do
 
   it 'calculates discounted revenue where applicable' do
     results = @ii_1.discount_revenue(@invoice_1.id)
-    expect(results).to eq(79)
+    expect(results).to eq(79.38)
   end
 end

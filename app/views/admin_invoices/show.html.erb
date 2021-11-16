@@ -19,5 +19,5 @@
 Total Revenue Generated: <br>
 $<%= @invoice_items.item_revenue %><br>
 Total Revenue After Discounts: <br>
-$<%= @invoice_items.discount_revenue(@invoice.id) %>
+$<%= @invoice_items.invoice_discount_revenue(@invoice.id) %>
 </section>
