@@ -36,25 +36,25 @@ class InvoiceItem < ApplicationRecord
     end
   end
 
-  def discount_revenue(invoice_id)
-    discounted_hash = Merchant.joins(:items, :bulk_discounts)
-    .joins(invoices: :transactions)
-    .where(transactions: {result: 0})
-    .select('bulk_discounts.threshold AS threshold, invoice_items.quantity AS bulk_count')
-    .where(:bulk_count >= :threshold)
-    .group('invoice_items.invoice_id')
-    .sum('(invoice_items.quantity * invoice_items.unit_price) * bulk_discounts.percentage')
-    discounted_hash[invoice_id].round(2)
-  end
-
-  def invoice_discount_revenue(invoice_id)
-    discount_id_hash = InvoiceItem.all
-    .joins([invoice: :transactions], [item: [merchant: :bulk_discounts]])
-    .where(transactions: {result: 0})
-    .select('invoices.id, bulk_discounts.threshold AS threshold, invoice_items.quantity AS quantity, bulk_discounts.id')
-    .group('bulk_discounts.id')
-    .where(:quantity >= :threshold)
-    .group('invoices.id')
-    .sum('(invoice_items.unit_price * quantity) * bulk_discounts.percentage')
-  end
+  # def discount_revenue(invoice_id)
+  #   discounted_hash = Merchant.joins(:items, :bulk_discounts)
+  #   .joins(invoices: :transactions)
+  #   .where(transactions: {result: 0})
+  #   .select('bulk_discounts.threshold AS threshold, invoice_items.quantity AS bulk_count')
+  #   .where(:bulk_count >= :threshold)
+  #   .group('invoice_items.invoice_id')
+  #   .sum('(invoice_items.quantity * invoice_items.unit_price) * bulk_discounts.percentage')
+  #   discounted_hash[invoice_id].round(2)
+  # end
+  #
+  # def invoice_discount_revenue(invoice_id)
+  #   discount_id_hash = InvoiceItem.all
+  #   .joins([invoice: :transactions], [item: [merchant: :bulk_discounts]])
+  #   .where(transactions: {result: 0})
+  #   .select('invoices.id, bulk_discounts.threshold AS threshold, invoice_items.quantity AS quantity, bulk_discounts.id')
+  #   .group('bulk_discounts.id')
+  #   .where(:quantity >= :threshold)
+  #   .group('invoices.id')
+  #   .sum('(invoice_items.unit_price * quantity) * bulk_discounts.percentage')
+  # end
 end

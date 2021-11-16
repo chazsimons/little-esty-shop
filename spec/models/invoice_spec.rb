@@ -43,8 +43,20 @@ RSpec.describe Invoice, type: :model do
     it {should have_many :invoice_items}
     it {should have_many :transactions}
   end
-  
+
   it 'can order_incomplete_invoices and return a nested array [[id1, created_at1], [id2, created_at2]]' do
     expect(Invoice.ordered_incomplete_invoices).to eq([[@invoice_1.id, @invoice_1.created_at], [@invoice_2.id, @invoice_2.created_at]])
+  end
+
+  it 'calculates total revenue on an instance of invoice' do
+    results = @invoice_1.total_revenue
+    expect(results).to eq(280)
+  end
+
+  it 'determines successful transactions' do
+    results = @invoice_1.successful_transactions.map do |transaction|
+                            transaction.id
+                          end
+    expect(results).to eq([@transaction_1.id, @transaction_2.id, @transaction_3.id])
   end
 end

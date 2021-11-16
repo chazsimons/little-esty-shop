@@ -37,8 +37,8 @@ RSpec.describe 'Discount Edit Page' do
 
   it 'has a form to update details with existing values in fields' do
     visit "/merchants/#{@merchant_1.id}/discounts/#{@discount_1.id}/edit"
-
-    expect(page).to have_content(@discount_1.threshold)
+    
+    expect(page).to have_field(:threshold, with: @discount_1.threshold)
     expect(page).to have_field(:percentage)
   end
 
