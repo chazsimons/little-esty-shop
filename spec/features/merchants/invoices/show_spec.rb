@@ -110,6 +110,7 @@ RSpec.describe 'merchant invoices show page' do
 
     within('#revenue_generated') do
       expect(page).to have_content("Total Revenue After Discounts:")
+      expect(page).to have_content(@invoice_1.ruby_invoice_discount)
     end
   end
 end
