@@ -11,6 +11,12 @@ class Invoice < ApplicationRecord
     transactions.success
   end
 
+  def total_revenue
+    invoice_items.sum do |ii|
+      ii.item_revenue
+    end
+  end
+
   def top_selling_by_date
     joins(invoices: :invoice_items)
     .select("invoices.created_at AS date, sum(invoice_items.quantity * invoice_items.unit_price) AS revenue_by_day")
@@ -29,5 +35,15 @@ class Invoice < ApplicationRecord
     invoice_items.sum do |ii|
       ii.ruby_discount_revenue
     end
+  end
+
+  def invoice_discount_revenue
+    invoice_items.joins([invoice: :transactions], [item: [merchant: :bulk_discounts]])
+    .where(transactions: {result: 0})
+    .select('invoices.id, bulk_discounts.threshold AS threshold, invoice_items.quantity AS quantity, bulk_discounts.id')
+    .group('bulk_discounts.id')
+    .where(:quantity >= :threshold)
+    .group('invoices.id')
+    .sum('(invoice_items.unit_price * quantity) * bulk_discounts.percentage')
   end
 end

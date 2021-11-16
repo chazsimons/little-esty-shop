@@ -19,9 +19,7 @@
 
 <section id="revenue_generated">
 Total Revenue Generated: <br>
-<% @invoice.invoice_items.sum do |ii|%>
-$<%= ii.item_revenue %><br>
-<% end %>
+$<%= @invoice.total_revenue %><br>
 Total Revenue After Discounts: <br>
 $<%= @invoice.ruby_invoice_discount %>
 </section>
