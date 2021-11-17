@@ -14,16 +14,14 @@ class InvoiceItem < ApplicationRecord
 
   def self.incomplete_invoices
     incomplete_invoices = InvoiceItem.select('invoice_items.*').where("status = 0 OR status = 1").distinct.order(invoice_id: :asc).pluck(:invoice_id)
-    if incomplete_invoices == nil
-      incomplete_invoices = []
-    end
+    incomplete_invoices = [] if incomplete_invoices == nil
     incomplete_invoices
   end
 
   def ruby_best_discount
     discounts = item.merchant.bulk_discounts
     applicable_discounts = discounts.where("#{self.quantity} >= bulk_discounts.threshold")
-    best = applicable_discounts.max_by do |discount|
+    applicable_discounts.max_by do |discount|
       discount.percentage
     end
   end
@@ -45,16 +43,5 @@ class InvoiceItem < ApplicationRecord
   #   .group('invoice_items.invoice_id')
   #   .sum('(invoice_items.quantity * invoice_items.unit_price) * bulk_discounts.percentage')
   #   discounted_hash[invoice_id].round(2)
-  # end
-  #
-  # def invoice_discount_revenue(invoice_id)
-  #   discount_id_hash = InvoiceItem.all
-  #   .joins([invoice: :transactions], [item: [merchant: :bulk_discounts]])
-  #   .where(transactions: {result: 0})
-  #   .select('invoices.id, bulk_discounts.threshold AS threshold, invoice_items.quantity AS quantity, bulk_discounts.id')
-  #   .group('bulk_discounts.id')
-  #   .where(:quantity >= :threshold)
-  #   .group('invoices.id')
-  #   .sum('(invoice_items.unit_price * quantity) * bulk_discounts.percentage')
   # end
 end

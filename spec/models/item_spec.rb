@@ -15,7 +15,7 @@ RSpec.describe Item do
     @customer_1 = Customer.create!(first_name: "Sally", last_name: "Brown")
     @customer_2 = Customer.create!(first_name: "Morgan", last_name: "Freeman")
 
-    @invoice_1 = Invoice.create!(status: 1, customer_id: @customer_1.id)
+    @invoice_1 = Invoice.create!(status: 1, customer_id: @customer_1.id, updated_at: '2021-05-04 09:54:09')
     @invoice_2 = Invoice.create!(status: 1, customer_id: @customer_1.id)
     @invoice_3 = Invoice.create!(status: 1, customer_id: @customer_2.id)
     @invoice_4 = Invoice.create!(status: 1, customer_id: @customer_2.id)
@@ -46,6 +46,11 @@ RSpec.describe Item do
   describe 'instance methods' do
     it 'returns the item revenue' do
       expect(@item_1.revenue).to eq(50)
+    end
+
+    it 'returns the best date for sales' do
+      results = @item_1.best_item_date
+      expect(results).to eq("Tuesday, May 04, 2021")
     end
   end
 
