@@ -24,7 +24,7 @@ RSpec.describe Merchant, type: :model do
     @customer_1 = Customer.create!(first_name: "Sally", last_name: "Brown")
     @customer_2 = Customer.create!(first_name: "Morgan", last_name: "Freeman")
 
-    @invoice_1 = Invoice.create!(status: 1, customer_id: @customer_1.id)
+    @invoice_1 = Invoice.create!(status: 1, customer_id: @customer_1.id, updated_at: '2012-03-25 09:54:09')
     @invoice_2 = Invoice.create!(status: 1, customer_id: @customer_1.id)
     @invoice_3 = Invoice.create!(status: 1, customer_id: @customer_2.id)
     @invoice_4 = Invoice.create!(status: 1, customer_id: @customer_2.id)
@@ -92,6 +92,11 @@ RSpec.describe Merchant, type: :model do
   describe 'instance methods' do
     it 'returns top 5 customers by transaction count with a specific merchant' do
       expect(@merchant_1.favorite_customers).to eq([@customer_1])
+    end
+
+    it 'returns the best date of sales for a merchants invoice' do
+      results = @merchant_1.best_date
+      expect(results).to eq('Sunday, March 25, 2012')
     end
   end
 end

@@ -21,10 +21,7 @@ class MerchantInvoicesController < ApplicationController
   end
 
   private
-  def invoice_params
-    params.permit(:status)
-  end
-
+  
   def invoice_item_params
    params.permit(:status)
   end
